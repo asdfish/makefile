@@ -30,8 +30,9 @@ $(if $(wilcard $(1)),$\
 
 endef
 define REMOVE_LIST
-$(foreach $(1),$\
-	$(call REMOVE,$(1)))
+$(foreach ITEM,$\
+	$(1),$\
+	$(call REMOVE,${ITEM}))
 endef
 
 all: project
