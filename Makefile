@@ -25,7 +25,7 @@ ${CC} -c $(1) ${C_FLAGS} -o $(2)
 
 endef
 define REMOVE
-$(if $(wilcard $(1)),$\
+$(if $(wildcard $(1)),$\
 	rm $(1))
 
 endef
