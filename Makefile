@@ -1,9 +1,8 @@
 CC ?= cc
-C_FLAGS := -std=c99 $\
-					 -O2 -march=native -pipe $\
-					 -Wall -Wextra -Wpedantic $\
-					 -Iinclude
-LD_FLAGS := ${C_FLAGS}
+CFLAGS ?= -O2 -march=native -pipe
+COMMONFLAGS := -std=c99 $\
+							 -Wall -Wextra -Wpedantic $\
+							 -Iinclude
 
 # uncomment/comment to enable/disable
 # PROCESS_HEADER_FILES := yes
@@ -21,7 +20,7 @@ OBJECT_FILES := $(patsubst src/%.c,$\
 PROJECT_REQUIREMENTS := ${PROCESSED_HEADER_FILES} ${OBJECT_FILES}
 
 define COMPILE
-${CC} -c $(1) ${C_FLAGS} -o $(2)
+${CC} -c $(1) ${CFLAGS} ${COMMONFLAGS} -o $(2)
 
 endef
 define REMOVE
@@ -38,7 +37,7 @@ endef
 all: project
 
 project: ${PROJECT_REQUIREMENTS}
-	${CC} ${OBJECT_FILES} ${LD_FLAGS} -o $@
+	${CC} ${OBJECT_FILES} ${CFLAGS} ${COMMONFLAGS} -o $@
 
 build/%.o: src/%.c
 	$(call COMPILE,$<,$@)
